@@ -15,6 +15,20 @@
     /* Custom Animations */
     /* -----------------------pm------------------------- */
 
+    @keyframes slide-infinite {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-slide-infinite {
+      animation: slide-infinite 40s linear infinite;
+    }
+
     #carousel {
       transition: opacity 0.5s ease-in-out;
     }
@@ -575,10 +589,14 @@
 
       <!-- Right Side: 2x2 Grid -->
       <div class="grid grid-cols-2 h-[500px]">
-        <img src="./img/image1.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-right" data-aos-delay="600" />
-        <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"  data-aos-delay="600"/>
-        <img src="./img/brand2.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-left" data-aos-delay="600" />
-        <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-down" data-aos-delay="600" />
+        <img src="./img/image1.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-right"
+          data-aos-delay="600" />
+        <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"
+          data-aos-delay="600" />
+        <img src="./img/brand2.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-left"
+          data-aos-delay="600" />
+        <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-down"
+          data-aos-delay="600" />
       </div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 items-start">
@@ -701,73 +719,204 @@
   </section> -->
 
   <!-- Testimonials Section -->
-  <section id="testimonials" class="py-16 px-4 md:px-8 lg:px-12 xl:px-40">
+  <!-- ✅ Wrap your testimonial cards in a new sliding container -->
+  <section id="testimonials" class="py-16 px-4 md:px-8 lg:px-12 xl:px-40 overflow-hidden">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center animate-fadein">What People Are Saying</h2>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-10">
+        What People Are<span class="text-yellow-500"> Saying</span>
+      </h1>
+      <!-- ✅ ADDED: Slider container -->
+      <div class="relative w-full">
+        <div class="flex w-max animate-slide-infinite space-x-8">
+          <!-- ✅ Your testimonial cards are duplicated for looping effect -->
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Testimonial 1 -->
-        <div
-          class="bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-100">
-          <div class="flex items-center mb-4">
+          <!-- 🔁 START Testimonials Loop -->
+          <div class="flex space-x-8">
+            <!-- Testimonial 1 -->
             <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
-              SJ
+              class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-yellow-500  mr-4 flex items-center justify-center text-white font-bold text-lg">
+                  MC
+                </div>
+                <div>
+                  <h4 class="font-bold">Michael Chen</h4>
+                  <p class="text-gray-600 text-sm">Digital Artist</p>
+                </div>
+              </div>
+              <p class="text-gray-700 italic relative">
+                "As an artist, I've found a supportive community and a platform that truly values creativity and
+                innovation."
+                <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+              </p>
             </div>
-            <div>
-              <h4 class="font-bold">Sarah Johnson</h4>
-              <p class="text-gray-600 text-sm">Art Collector</p>
+
+            <!-- Testimonial 2 -->
+            <div
+              class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                  MC
+                </div>
+                <div>
+                  <h4 class="font-bold">Michael Chen</h4>
+                  <p class="text-gray-600 text-sm">Digital Artist</p>
+                </div>
+              </div>
+              <p class="text-gray-700 italic relative">
+                "As an artist, I've found a supportive community and a platform that truly values creativity and
+                innovation."
+                <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+              </p>
+            </div>
+
+
+            <!-- Testimonial 3 -->
+            <div
+              class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                  MC
+                </div>
+                <div>
+                  <h4 class="font-bold">Michael Chen</h4>
+                  <p class="text-gray-600 text-sm">Digital Artist</p>
+                </div>
+              </div>
+              <p class="text-gray-700 italic relative">
+                "As an artist, I've found a supportive community and a platform that truly values creativity and
+                innovation."
+                <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+              </p>
+            </div>
+            <!-- 🔁 END Testimonials Loop -->
+
+            <!-- ✅ Duplicated testimonials for smooth infinite loop -->
+            <div class="flex space-x-8">
+              <div
+                class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    MC
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Michael Chen</h4>
+                    <p class="text-gray-600 text-sm">Digital Artist</p>
+                  </div>
+                </div>
+                <p class="text-gray-700 italic relative">
+                  "As an artist, I've found a supportive community and a platform that truly values creativity and
+                  innovation."
+                  <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+                </p>
+              </div>
+              <!-- Testimonial 2 -->
+              <div
+                class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    MC
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Michael Chen</h4>
+                    <p class="text-gray-600 text-sm">Digital Artist</p>
+                  </div>
+                </div>
+                <p class="text-gray-700 italic relative">
+                  "As an artist, I've found a supportive community and a platform that truly values creativity and
+                  innovation."
+                  <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+                </p>
+              </div>
+              <!-- Testimonial 3 -->
+              <div
+                class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    MC
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Michael Chen</h4>
+                    <p class="text-gray-600 text-sm">Digital Artist</p>
+                  </div>
+                </div>
+                <p class="text-gray-700 italic relative">
+                  "As an artist, I've found a supportive community and a platform that truly values creativity and
+                  innovation."
+                  <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+                </p>
+              </div>
+            </div>
+            <div class="flex space-x-8">
+              <div
+                class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    MC
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Michael Chen</h4>
+                    <p class="text-gray-600 text-sm">Digital Artist</p>
+                  </div>
+                </div>
+                <p class="text-gray-700 italic relative">
+                  "As an artist, I've found a supportive community and a platform that truly values creativity and
+                  innovation."
+                  <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+                </p>
+              </div>
+              <!-- Testimonial 2 -->
+              <div
+                class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    MC
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Michael Chen</h4>
+                    <p class="text-gray-600 text-sm">Digital Artist</p>
+                  </div>
+                </div>
+                <p class="text-gray-700 italic relative">
+                  "As an artist, I've found a supportive community and a platform that truly values creativity and
+                  innovation."
+                  <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+                </p>
+              </div>
+              <!-- Testimonial 3 -->
+              <div
+                class="min-w-[200px] max-w-[400px] min-h-[200px] bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-yellow-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    MC
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Michael Chen</h4>
+                    <p class="text-gray-600 text-sm">Digital Artist</p>
+                  </div>
+                </div>
+                <p class="text-gray-700 italic relative">
+                  "As an artist, I've found a supportive community and a platform that truly values creativity and
+                  innovation."
+                  <span class="absolute bottom-0 right-0 text-yellow-500 text-4xl">"</span>
+                </p>
+              </div>
             </div>
           </div>
-          <p class="text-gray-700 italic relative">
-            "This gallery is a game-changer for digital art. The curation is impeccable, and the platform is a joy to
-            use."
-            <span class="absolute bottom-0 right-0 text-indigo-400 text-4xl">"</span>
-          </p>
-        </div>
-
-        <!-- Testimonial 2 -->
-        <div
-          class="bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-200">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
-              MC
-            </div>
-            <div>
-              <h4 class="font-bold">Michael Chen</h4>
-              <p class="text-gray-600 text-sm">Digital Artist</p>
-            </div>
-          </div>
-          <p class="text-gray-700 italic relative">
-            "As an artist, I've found a supportive community and a platform that truly values creativity and
-            innovation."
-            <span class="absolute bottom-0 right-0 text-indigo-400 text-4xl">"</span>
-          </p>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div
-          class="bg-white rounded-xl p-6 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-scaleup delay-300">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mr-4 flex items-center justify-center text-white font-bold text-lg">
-              ER
-            </div>
-            <div>
-              <h4 class="font-bold">Emma Rodriguez</h4>
-              <p class="text-gray-600 text-sm">Gallery Owner</p>
-            </div>
-          </div>
-          <p class="text-gray-700 italic relative">
-            "The diversity of styles and the quality of work are simply breathtaking. A must-visit for any art
-            enthusiast."
-            <span class="absolute bottom-0 right-0 text-indigo-400 text-4xl">"</span>
-          </p>
         </div>
       </div>
     </div>
   </section>
+
 
   <!-- Newsletter Section -->
   <section id="contact"
