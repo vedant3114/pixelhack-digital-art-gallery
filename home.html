@@ -9,6 +9,9 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Inside <head> -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <style>
@@ -429,12 +432,12 @@
   </section>
 
   <!-- Gallery Section -->
-  <section id="next-section" id="gallery" class="py-16 px-4 md:px-8 lg:px-12 xl:px-40">
+  <section id="next-section" id="gallery" class="py-16 px-4 md:px-8 lg:px-12 xl:px-40" >
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center animate-fadein"
         style="font-family: 'Montserrat', sans-serif;">Featured Collections</h2>
 
-      <div class="flex flex-wrap gap-4 mb-8 animate-fadein delay-100">
+      <div class="flex flex-wrap gap-4 mb-8 animate-fadein delay-400">
         <button
           class="filter-btn flex items-center gap-2 bg-gray-200 hover:bg-gray-300 rounded-full px-4 py-2 transition-all duration-300 liquid-btn">
           <span>Abstract</span>
@@ -464,7 +467,7 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="600">
         <!-- Artwork 1 -->
         <div
           class="artwork-hover bg-white rounded-xl shadow-lg overflow-hidden animate-scaleup delay-100 transform transition-all duration-500">
@@ -563,13 +566,13 @@
     </div>
   </section>
 
-  <section class="bg-gray-50 py-12 px-6 md:px-20" data-aos="fade-up" data-aos-delay="600">
+  <section class="bg-gray-50 py-12 px-6 md:px-20">
     <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-10">
       Our <span class="text-yellow-500">Best Arts</span>
     </h1>
-    <div class="grid grid-cols-1 lg:grid-cols-2 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-2 items-start animate-fadein delay-600">
       <!-- Left Side: Slider -->
-      <div class="relative w-full h-[500px] overflow-hidden  shadow-lg">
+      <div class="relative w-full h-[500px] overflow-hidden  shadow-lg " data-aos="fade-up" data-aos-delay="500">
         <div class="w-full h-full relative">
           <div id="carousel" class="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out">
             <img src="./img/image1.jpg" class="w-full h-full object-cover" />
@@ -588,28 +591,32 @@
       </div>
 
       <!-- Right Side: 2x2 Grid -->
-      <div class="grid grid-cols-2 h-[500px]">
+      <div class="grid grid-cols-2 h-[500px]" data-aos="fade-down" data-aos-delay="500">
         <img src="./img/image1.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-right"
           data-aos-delay="600" />
         <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"
-          data-aos-delay="600" />
+          data-aos-delay="700" />
         <img src="./img/brand2.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-left"
-          data-aos-delay="600" />
+          data-aos-delay="800" />
         <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-down"
-          data-aos-delay="600" />
+          data-aos-delay="900" />
       </div>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-2 items-start" data-aos="fade-down" data-aos-delay="500">
       <!-- Left Side: 2x2 Grid -->
       <div class="grid grid-cols-2 h-[500px]">
-        <img src="./img/image1.jpg" alt="" class="w-full h-full object-cover" />
-        <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover" />
-        <img src="./img/brand2.jpg" alt="" class="w-full h-full object-cover" />
-        <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover" />
+         <img src="./img/image1.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-right"
+          data-aos-delay="600" />
+        <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"
+          data-aos-delay="700" />
+        <img src="./img/brand2.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-left"
+          data-aos-delay="800" />
+        <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-down"
+          data-aos-delay="900" />
       </div>
 
       <!-- Right Side: Slider -->
-      <div class="relative w-full h-[500px] overflow-hidden shadow-lg">
+      <div class="relative w-full h-[500px] overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="500">
         <div class="w-full h-full relative">
           <div id="carousel-reverse" class="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out">
             <img src="./img/image1.jpg" class="w-full h-full object-cover" />
@@ -726,7 +733,7 @@
         What People Are<span class="text-yellow-500"> Saying</span>
       </h1>
       <!-- ✅ ADDED: Slider container -->
-      <div class="relative w-full">
+      <div class="relative w-full" data-aos="fade-up" data-aos-delay="500">
         <div class="flex w-max animate-slide-infinite space-x-8">
           <!-- ✅ Your testimonial cards are duplicated for looping effect -->
 
@@ -1333,10 +1340,16 @@
     setInterval(nextSlideReverseFn, 3000); // Auto slide every 3s
     showSlideReverse(indexReverse);
   </script>
-
-
-
-
+  <!-- Just before --->
+  
+</body>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,  // animation duration
+      once: true       // animate only once
+    });
+  </script>
 
 
 </body>
