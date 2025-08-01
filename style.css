@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+.loader-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 60px 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  /*background-color: #000; /* Fallback background */
+}
+
+.bg-overlay {
+  background: url('./img/image1.jpg') center/cover fixed; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  filter: brightness(0.4);
+  -webkit-filter: brightness(0.4); /* Safari fix */
+}
+
+.top-left {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  font-size: 28px;
+  font-weight: 300;
+  color: #f0f0f0;
+  /* Ensure visibility */
+  z-index: 2;
+}
+
+.main-text {
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 1.1;
+  /* Ensure visibility */
+  z-index: 2;
+}
+
+.main-text h1 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s forwards;
+}
+
+.fade-in.delay-1 { animation-delay: 0.3s; }
+.fade-in.delay-2 { animation-delay: 1s; }
+.fade-in.delay-3 { animation-delay: 1.8s; }
+
+#blink-now {
+  color: #ffd700;
+  opacity: 1;
+  animation: blink 1.2s infinite ease-in-out;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  font-size: 16px;
+  color: #ddd;
+  /* Ensure visibility */
+  z-index: 2;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fallback for when image fails to load */
+.bg-overlay:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .main-text {
+    font-size: 2.5rem;
+  }
+
+  .top-left {
+    font-size: 20px;
+    left: 20px;
+    top: 20px;
+  }
+
+  .bottom-left {
+    font-size: 14px;
+    left: 20px;
+    bottom: 20px;
+  }
+
+  .loader-wrapper {
+    padding: 40px 4vw;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-text {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+}
