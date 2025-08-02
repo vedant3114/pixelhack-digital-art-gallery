@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isabella Rossi Portfolio | Digital Art Gallery</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #a855f7;
+      --secondary: #ec4899;
+      --accent: #f43f5e;
+      --dark: #1e293b;
+      --darker: #0f172a;
+      --light: #ffffff;
+      --text: #f1f5f9;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #f5f5f5 0%, #fce7f3 100%);
+      color: #475569;
+      overflow-x: hidden;
+    }
+    
+    /* Particle Background */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    
+    /* Top Navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    
+    .top-nav-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+    
+    .back-link:hover {
+      transform: -translateX(5px);
+    }
+    
+    .artist-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 100%);
+    }
+    
+    .artist-avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(168, 85, 247, 0.3);
+      transition: transform 0.5s;
+    }
+    
+    .artist-avatar:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+    
+    .artist-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .artist-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    
+    .artist-description {
+      font-size: 1.2rem;
+      color: #475569;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+    
+    .artist-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .tag {
+      background: rgba(168, 85, 247, 0.1);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    /* Portfolio Section */
+    .portfolio-section {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      background: white;
+      transition: transform 0.5s, box-shadow 0.5s;
+      cursor: pointer;
+    }
+    
+    .portfolio-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+    }
+    
+    .portfolio-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .portfolio-item:hover .portfolio-image {
+      transform: scale(1.1);
+    }
+    
+    .portfolio-info {
+      padding: 1.5rem;
+      background: white;
+    }
+    
+    .portfolio-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+    
+    .portfolio-description {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    
+    .price-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(168, 85, 247, 0.9);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+    
+    /* Bio Section */
+   .bio-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #fdf2f8 0%, #ffe4e6 100%);
+}
+
+.bio-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+  align-items: center;
+  justify-content: center; /* ensures content aligns to top */
+}
+
+.bio-image img {
+  width: 100%;
+  height: 400px;
+  display: block;
+  border-radius: 1rem;
+  
+  box-shadow: 0 15px 30px rgba(168, 85, 247, 0.15);
+  object-fit: cover; /* ensures proper image scaling */
+}
+
+.bio-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+}
+
+.bio-content p {
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+  .bio-container {
+    grid-template-columns: 1fr; /* stack vertically */
+    text-align: center;
+  }
+
+  .bio-image img {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px; /* limit image width on smaller screens */
+  }
+}
+
+    
+    /* Awards Section */
+    .awards-section {
+      padding: 4rem 2rem;
+      background: #fdf2f8;
+    }
+    
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .award-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .award-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .award-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .award-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+    
+    .award-date {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    /* Recognition Section */
+    .recognition-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%);
+    }
+    
+    .recognition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .recognition-card {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(168, 85, 247, 0.1);
+      transition: transform 0.3s;
+    }
+    
+    .recognition-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .publication-logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      font-weight: 700;
+      color: #6b7280;
+    }
+    
+    .recognition-content {
+      padding: 1.5rem;
+    }
+    
+    .recognition-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+    
+    .recognition-quote {
+      color: #64748b;
+      font-style: italic;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .contact-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    /* Button Styles */
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-secondary:hover {
+      background: white;
+      color: var(--primary);
+    }
+    
+    /* Footer */
+    .footer {
+      background: #1e293b;
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .top-nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .hero-section {
+        padding: 5rem 1rem 3rem;
+      }
+      
+      .artist-title {
+        font-size: 2rem;
+      }
+      
+      .bio-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <canvas id="particles-canvas"></canvas>
+  
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="top-nav-content">
+      <a href="home.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Gallery
+      </a>
+      <div class="artist-name">Isabella Rossi</div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="artist-avatar">
+      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Isabella Rossi">
+    </div>
+    <h1 class="artist-title animate-fade-in">Isabella Rossi</h1>
+    <p class="artist-description animate-fade-in" style="animation-delay: 0.1s;">
+      Pioneering AI artist exploring the intersection of consciousness and computation. Her algorithmically generated pieces challenge traditional art boundaries while questioning the nature of creativity itself.
+    </p>
+    <div class="artist-tags animate-fade-in" style="animation-delay: 0.2s;">
+      <span class="tag">AI Art</span>
+      <span class="tag">Generative</span>
+      <span class="tag">Neural Aesthetics</span>
+      <span class="tag">Conceptual</span>
+    </div>
+    
+    <div class="contact-buttons animate-fade-in" style="animation-delay: 0.3s;">
+      <a href="#contact" class="btn btn-primary">
+        <i class="fas fa-envelope"></i> Contact Artist
+      </a>
+      <a href="#" class="btn btn-primary">
+        <i class="fas fa-download"></i> Download Portfolio PDF
+      </a>
+    </div>
+  </section>
+  
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid animate-fade-in">
+      <div class="stat-item">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">AI Artworks</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">15</div>
+        <div class="stat-label">Research Papers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10</div>
+        <div class="stat-label">Patents</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">500k+</div>
+        <div class="stat-label">Collectors</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section class="portfolio-section">
+    <h2 class="section-title animate-fade-in">Featured Artworks</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.1s;">
+        <div class="price-tag">$15,000</div>
+        <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dream Weaver" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Dream Weaver</h3>
+          <p class="portfolio-description">AI-generated visualization of collective dreaming patterns</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.2s;">
+        <div class="price-tag">$18,500</div>
+        <img src="https://images.unsplash.com/photo-1514620479429-49d616ba26f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Neural Dreams" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Neural Dreams</h3>
+          <p class="portfolio-description">Training AI to create its own dreamscapes</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.3s;">
+        <div class="price-tag">$22,000</div>
+        <img src="https://images.unsplash.com/photo-1618202133996-7620e8be351b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Digital Consciousness" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Digital Consciousness</h3>
+          <p class="portfolio-description">Sculptural representation of emerging AI sentience</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.4s;">
+        <div class="price-tag">$12,800</div>
+        <img src="https://images.unsplash.com/photo-1572217677686-cb3bbc84270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Algorithm Emotion" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Algorithm Emotion</h3>
+          <p class="portfolio-description">Visualizing machine learning emotional states</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.5s;">
+        <div class="price-tag">$25,000</div>
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Singularity" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Singularity Garden</h3>
+          <p class="portfolio-description">AI-generated vision of post-human creativity</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.6s;">
+        <div class="price-tag">$16,600</div>
+        <img src="https://images.unsplash.com/photo-1618278382790-c18890fcf2d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Neural Network" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Neural Network Dreams</h3>
+          <p class="portfolio-description">Animating thought processes through generative art</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Bio Section -->
+  <section class="bio-section">
+    <div class="bio-container">
+      <div class="bio-image animate-fade-in">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Isabella in her studio">
+      </div>
+      <div class="bio-content animate-fade-in" style="animation-delay: 0.1s;">
+        <h2>About Isabella</h2>
+        <p>
+          Born in Rome to an Italian neuroscientist and an American artist, Isabella Rossi grew up at the intersection of two worlds. Her childhood home was filled with both microscopic brain scans and vibrant canvases, creating a unique perspective on creativity and consciousness.
+        </p>
+        <p>
+          After earning her PhD in Computational Neuroscience at MIT, Isabella worked for several years on cutting-edge AI research before turning her attention to creative applications. In 2017, she founded Neural Aesthetics Studio, dedicated to exploring the artistic possibilities of artificial intelligence.
+        </p>
+        <p>
+          "AI is not replacing creativity—it's expanding it," Isabella explains. "My art is about exploring new forms of consciousness and expression that emerge at the intersection of human ingenuity and machine learning. Each piece is a collaboration between human vision and artificial intelligence."
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Recognition Section -->
+  <section class="recognition-section">
+    <h2 class="section-title animate-fade-in">Press & Recognition</h2>
+    <div class="recognition-grid">
+      <div class="recognition-card animate-fade-in" style="animation-delay: 0.1s;">
+        <div class="publication-logo">TED</div>
+        <div class="recognition-content">
+          <h3 class="recognition-title">TED Talk: The Art of AI</h3>
+          <p class="recognition-quote">"Isabella challenges our understanding of creativity itself"</p>
+        </div>
+      </div>
+      
+      <div class="recognition-card animate-fade-in" style="animation-delay: 0.2s;">
+        <div class="publication-logo">WIRED</div>
+        <div class="recognition-content">
+          <h3 class="recognition-title">Futurist of 2024</h3>
+          <p class="recognition-quote">"Pioneering a new artistic renaissance"</p>
+        </div>
+      </div>
+      
+      <div class="recognition-card animate-fade-in" style="animation-delay: 0.3s;">
+        <div class="publication-logo">ARTFORUM</div>
+        <div class="recognition-content">
+          <h3 class="recognition-title">AI Art Pioneer</h3>
+          <p class="recognition-quote">"Creating a new artistic movement for the digital age"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Awards Section -->
+  <section class="awards-section">
+    <h2 class="section-title animate-fade-in">Awards & Achievements</h2>
+    <div class="awards-grid">
+      <div class="award-card animate-fade-in" style="animation-delay: 0.1s;">
+        <i class="fas fa-robot award-icon"></i>
+        <h3 class="award-title">Innovation in AI Arts</h3>
+        <p class="award-description">Venice Biennale Digital Pavilion 2023</p>
+        <p class="award-date">May 2023</p>
+      </div>
+      
+      <div class="award-card animate-fade-in" style="animation-delay: 0.2s;">
+        <i class="fas fa-brain award-icon"></i>
+        <h3 class="award-title">Neuro-Art Pioneer Award</h3>
+        <p class="award-description">Brain Arts International Festival</p>
+        <p class="award-date">September 2022</p>
+      </div>
+      
+      <div class="award-card animate-fade-in" style="animation-delay: 0.3s;">
+        <i class="fas fa-microchip award-icon"></i>
+        <h3 class="award-title">Tech Visionary</h3>
+        <p class="award-description">Global Digital Innovation Summit</p>
+        <p class="award-date">March 2023</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="contact-content">
+      <h2>Interested in AI Art Collaboration?</h2>
+      <p>Reach out to discuss AI art projects, neural aesthetic research, or custom generative artwork</p>
+      <div class="contact-buttons">
+        <a href="mailto:agent@digitalartgallery.com" class="btn btn-primary">
+          <i class="fas fa-envelope"></i> Contact Agent
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <i class="fas fa-atom"></i> Request Research Paper
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="social-links">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-researchgate"></i></a>
+      <a href="#"><i class="fab fa-artstation"></i></a>
+    </div>
+    <p>&copy; 2023 Digital Art Gallery. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // Particle Background
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const particleCount = 40;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.strokeStyle = `rgba(168, 85, 247, ${1 - distance / 100})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.portfolio-item, .award-card, .recognition-card').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Portfolio | Digital Art Gallery</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  
+  <style>
+    /* Add these styles to maintain consistency with your main site */
+    :root {
+      --primary: #4f46e5;
+      --secondary: #7c3aed;
+      --accent: #ec4899;
+      --dark: #0f0c29;
+      --darker: #302b63;
+      --light: #ffffff;
+      --text: #e2e8f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e0e7ff 100%);
+      color: #374151;
+      overflow-x: hidden;
+    }
+    
+    /* Particle Background */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    
+    /* Buttons */
+    .liquid-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .liquid-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+    
+    .liquid-btn:hover::before {
+      left: 100%;
+    }
+    
+    .liquid-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+    }
+    
+    /* Artwork hover effect */
+    .portfolio-grid-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    
+    .portfolio-grid-item::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .portfolio-grid-item:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .portfolio-grid-item img {
+      transition: transform 0.5s ease;
+    }
+    
+    .portfolio-grid-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .portfolio-grid-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.2), 0 10px 10px -5px rgba(79, 70, 229, 0.1);
+    }
+    
+    .work-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+    
+    .portfolio-grid-item:hover .work-overlay {
+      opacity: 1;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes scaleUp {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .animate-fadein { 
+      animation: fadeIn 0.8s ease-out forwards; 
+      opacity: 0;
+    }
+    
+    .animate-scaleup { 
+      animation: scaleUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+      opacity: 0;
+    }
+    
+    .animate-float { 
+      animation: float 4s ease-in-out infinite; 
+    }
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    
+    /* Shimmer effect */
+    .shimmer-text {
+      background: linear-gradient(90deg, #a78bfa 0%, #e0e7ff 50%, #a78bfa 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    /* Lightbox styles */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .lightbox-close:hover {
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <canvas id="particles-canvas"></canvas>
+  
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 z-50">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="home.html" class="flex items-center gap-2 text-indigo-600 font-bold text-xl">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Gallery</span>
+      </a>
+      <h1 class="text-xl shimmer-text">Artist Portfolio</h1>
+      <div class="w-10"></div> <!-- Spacer for alignment -->
+    </div>
+  </header>
+  
+  <!-- Artist Hero Section -->
+  <section class="relative py-16 md:py-24 overflow-hidden">
+    <div class="container mx-auto px-4 absolute inset-0 bg-gradient-to-b from-indigo-50/50 to-transparent"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+        <div class="md:w-2/3 md:order-1">
+          <span class="inline-block bg-indigo-100 text-indigo-800 px-4 py-1 rounded-full text-sm font-medium mb-4">
+            Featured Artist
+          </span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fadein">
+            <span class="shimmer-text">Ava Sharma</span>
+          </h1>
+          <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl leading-relaxed animate-fadein delay-100">
+            Ava Sharma is a digital artist known for her vibrant abstract compositions that explore the intersection of color and form. Her work has been featured in exhibitions worldwide.
+          </p>
+          <div class="flex flex-wrap gap-4 animate-fadein delay-200">
+            <button class="liquid-btn bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
+              Contact Artist
+            </button>
+            <button class="liquid-btn bg-white border-2 border-indigo-600 text-indigo-600 font-bold py-3 px-8 rounded-full transition-all duration-300">
+              Download Portfolio
+            </button>
+          </div>
+        </div>
+        <div class="md:w-1/3 flex justify-center animate-fadein delay-300">
+          <div class="relative group">
+            <div class="w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden shadow-xl transform transition-transform duration-700 group-hover:scale-110">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" 
+                   alt="Artist Portrait" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute inset-0 rounded-full bg-gradient-to-t from-purple-500/20 to-transparent group-hover:from-purple-600/30 transition-all duration-700"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Artist Stats -->
+  <section class="container mx-auto px-4 py-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="animate-fadein delay-100">
+        <h3 class="text-3xl font-bold text-indigo-600 mb-1">150+</h3>
+        <p class="text-gray-600">Artworks</p>
+      </div>
+      <div class="animate-fadein delay-200">
+        <h3 class="text-3xl font-bold text-purple-600 mb-1">12</h3>
+        <p class="text-gray-600">Exhibitions</p>
+      </div>
+      <div class="animate-fadein delay-300">
+        <h3 class="text-3xl font-bold text-pink-600 mb-1">50+</h3>
+        <p class="text-gray-600">Awards</p>
+      </div>
+      <div class="animate-fadein delay-400">
+        <h3 class="text-3xl font-bold text-indigo-600 mb-1">10K+</h3>
+        <p class="text-gray-600">Collectors</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Artwork Gallery -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-fadein">Featured Artworks</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto animate-fadein delay-100">
+          Explore Ava's latest creations that showcase her unique blend of color, form, and digital innovation.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Artwork Items -->
+        <div class="portfolio-grid-item animate-scaleup" data-src="https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Artwork 1" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Cosmic Dance</h3>
+              <p class="text-gray-200 text-sm">Abstract • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-100" data-src="https://images.unsplash.com/photo-1556897583-ffad6d614086?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1556897583-ffad6d614086?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 2" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Digital Dreams</h3>
+              <p class="text-gray-200 text-sm">3D • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-200" data-src="https://images.unsplash.com/photo-154196101777422476ba7b75413d292d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-154196101777422476ba7b75413d292d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 3" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Color Symphony</h3>
+              <p class="text-gray-200 text-sm">Abstract • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-300" data-src="https://images.unsplash.com/photo-1557299612-5b15e399867a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1557299612-5b15e399867a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 4" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Fluid Motion</h3>
+              <p class="text-gray-200 text-sm">Generative • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-400" data-src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 5" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Digital Landscape</h3>
+              <p class="text-gray-200 text-sm">3D • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-100" data-src="https://images.unsplash.com/photo-1571175762676-f69f5e5e3355?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1571175762676-f69f5e5e3355?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 6" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Abstract Harmony</h3>
+              <p class="text-gray-200 text-sm">AI • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-200" data-src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 7" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Neon Reflectionh3>
+              <p class="text-gray-200 text-sm">Cyber • 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-grid-item animate-scaleup delay-300" data-src="https://images.unsplash.com/photo-1618620904940-71a05cd4b9b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+          <div class="aspect-square relative">
+            <img src="https://images.unsplash.com/photo-1618620904940-71a05cd4b9b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Artwork 8" class="w-full h-full object-cover">
+            <div class="work-overlay">
+              <h3 class="text-white font-bold text-lg">Quantum Fields</h3>
+              <p class="text-gray-200 text-sm">Generative • 2023</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Artist Bio -->
+  <section class="py-16 md:py-24 bg-gradient-to-br from-indigo-50 to-purple-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center animate-fadein">Artist Biography</h2>
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-bold mb-4 shimmer-text">The Creative Journey</h3>
+              <p class="text-gray-600 mb-4 leading-relaxed animate-fadein">
+                Ava Sharma began her artistic exploration in the digital realm, blending traditional artistic principles with cutting-edge technologies. Her work explores the intersection of human creativity and algorithmic processes.
+              </p>
+              <p class="text-gray-600 mb-4 leading-relaxed animate-fadein delay-100">
+                With a background in both fine arts and computer science, Ava creates works that challenge our perceptions of beauty and reality. Her pieces often reflect on themes of consciousness, digital identity, and the future of human expression.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-4 shimmer-text">Technique & Style</h3>
+              <p class="text-gray-600 mb-4 leading-relaxed animate-fadein delay-200">
+                Known for her vibrant color palettes and dynamic compositions, Ava's technique combines procedural generation with manual intervention. She uses proprietary algorithms to generate patterns and then adds her personal touch to create unique visual experiences.
+              </p>
+              <p class="text-gray-600 mb-4 leading-relaxed animate-fadein delay-300">
+                Her art has been described as "contemporary impressionism meets digital surrealism" - capturing fleeting moments and emotions in a format that exists between the physical and digital worlds.
+              </p>
+            </div>
+          </div>
+          
+          <div class="mt-12 pt-8 border-t border-gray-200">
+            <h4 class="text-lg font-bold mb-4">Exhibitions & Recognition</h4>
+            <ul class="grid md:grid-cols-2 gap-4 text-gray-600">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-trophy text-indigo-600 mt-1"></i>
+                <span><strong>Digital Art Biennale 2023</strong> | Winner of Innovation Award</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-award text-purple-600 mt-1"></i>
+                <span><strong>MoMA Digital Exhibition</strong> | Featured Artist 2022</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-palette text-pink-600 mt-1"></i>
+                <span><strong>Venice Digital Art Fair</strong> | Solo Exhibition 2021</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-star text-yellow-500 mt-1"></i>
+                <span><strong>Digital Art World Championship</strong> | Top 10 Artist 2023</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action -->
+  <section class="py-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-fadein">Own a Piece of Ava's Art</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto animate-fadein delay-100">
+        Contact us to inquire about purchasing original digital artworks or commissioning a custom piece.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="liquid-btn bg-white text-indigo-600 font-bold py-3 px-8 rounded-full transition-all duration-300">
+          <i class="fas fa-envelope mr-2"></i> Contact Agent
+        </button>
+        <button class="liquid-btn bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
+          <i class="fas fa-calendar mr-2"></i> Visit Studio
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 px-4">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 shimmer-text">Digital Art Gallery</h3>
+          <p class="text-gray-400">Celebrating digital creativity from around the world.</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-indigo-400">Explore</h4>
+          <ul class="space-y-2">
+            <li><a href="home.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="gallery.html" class="text-gray-400 hover:text-white transition-colors">Gallery</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Artists</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Exhibitions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-indigo-400">Legal</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookies</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-indigo-400">Connect</h4>
+          <div class="flex gap-4">
+            <a href="#" class="text-gray-400 hover:text-white transform transition-all duration-300 hover:scale-110">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transform transition-all duration-300 hover:scale-110">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transform transition-all duration-300 hover:scale-110">
+              <i class="fab fa-behance text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transform transition-all duration-300 hover:scale-110">
+              <i class="fab fa-dribbble text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>© 2025 Digital Art Gallery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <i class="fas fa-times lightbox-close"></i>
+    <img src="" alt="Artwork" id="lightbox-img">
+  </div>
+  
+  <script>
+    // Particle Background
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const particleCount = 50;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1.5 - 0.75;
+        this.speedY = Math.random() * 1.5 - 0.75;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = 'rgba(99, 102, 241, 0.4)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distance / 100})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.querySelector('.lightbox-close');
+
+    const portfolioItems = document.querySelectorAll('.portfolio-grid-item');
+
+    portfolioItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.remove('opacity-100', 'visible');
+        backToTopButton.classList.add('opacity-0', 'invisible');
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadein');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.portfolio-grid-item, section > div').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

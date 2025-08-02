@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethan Chen Portfolio | Digital Art Gallery</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #3b82f6;
+      --accent: #0ea5e9;
+      --dark: #0f172a;
+      --darker: #1e293b;
+      --light: #ffffff;
+      --text: #e2e8f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #f5f5f5 0%, #dbeafe 100%);
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+    
+    /* Same styles as above but adjust colors and content for Ethan Chen */
+    /* Particle Background */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    
+    /* Top Navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    
+    .top-nav-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+    
+    .back-link:hover {
+      transform: -translateX(5px);
+    }
+    
+    .artist-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+    }
+    
+    .artist-avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+      transition: transform 0.5s;
+    }
+    
+    .artist-avatar:hover {
+      transform: scale(1.05);
+    }
+    
+    .artist-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .artist-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    
+    .artist-description {
+      font-size: 1.2rem;
+      color: #334155;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+    
+    .artist-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .tag {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    /* Portfolio Section */
+    .portfolio-section {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      background: white;
+      transition: transform 0.5s, box-shadow 0.5s;
+      cursor: pointer;
+    }
+    
+    .portfolio-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    }
+    
+    .portfolio-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .portfolio-item:hover .portfolio-image {
+      transform: scale(1.1);
+    }
+    
+    .portfolio-info {
+      padding: 1.5rem;
+      background: white;
+    }
+    
+    .portfolio-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+    
+    .portfolio-description {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    
+    .price-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(99, 102, 241, 0.9);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+    
+    /* Bio Section */
+    .bio-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .bio-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .bio-image {
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.15);
+    }
+    
+    .bio-content h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+    }
+    
+    .bio-content p {
+      color: #475569;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Awards Section */
+    .awards-section {
+      padding: 4rem 2rem;
+      background: #f8fafc;
+    }
+    
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .award-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .award-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .award-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .award-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+    
+    .award-date {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .contact-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    /* Button Styles */
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-secondary:hover {
+      background: white;
+      color: var(--primary);
+    }
+    
+    /* Footer */
+    .footer {
+      background: #1e293b;
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .top-nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .hero-section {
+        padding: 5rem 1rem 3rem;
+      }
+      
+      .artist-title {
+        font-size: 2rem;
+      }
+      
+      .bio-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <canvas id="particles-canvas"></canvas>
+  
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="top-nav-content">
+      <a href="home.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Gallery
+      </a>
+      <div class="artist-name">Ethan Chen</div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="artist-avatar">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Ethan Chen">
+    </div>
+    <h1 class="artist-title animate-fade-in">Ethan Chen</h1>
+    <p class="artist-description animate-fade-in" style="animation-delay: 0.1s;">
+      Award-winning 3D artist and digital architect specializing in immersive environments that blend futuristic aesthetics with natural elements. His technical mastery creates breathtaking virtual worlds.
+    </p>
+    <div class="artist-tags animate-fade-in" style="animation-delay: 0.2s;">
+      <span class="tag">3D Art</span>
+      <span class="tag">Architecture</span>
+      <span class="tag">Virtual Reality</span>
+      <span class="tag">Game Art</span>
+    </div>
+    
+    <div class="contact-buttons animate-fade-in" style="animation-delay: 0.3s;">
+      <a href="#contact" class="btn btn-primary">
+        <i class="fas fa-envelope"></i> Contact Artist
+      </a>
+      <a href="#" class="btn btn-secondary">
+        <i class="fas fa-download"></i> Download Portfolio PDF
+      </a>
+    </div>
+  </section>
+  
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid animate-fade-in">
+      <div class="stat-item">
+        <div class="stat-number">75+</div>
+        <div class="stat-label">3D Environments</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">9</div>
+        <div class="stat-label">Game Environments</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">15</div>
+        <div class="stat-label">Exhibitions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Awards</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section class="portfolio-section">
+    <h2 class="section-title animate-fade-in">Featured Artworks</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.1s;">
+        <div class="price-tag">$8,500</div>
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Neon Cityscape" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Neon Cityscape 2087</h3>
+          <p class="portfolio-description">Futuristic cityscape with bio-organic architecture and neon lighting</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.2s;">
+        <div class="price-tag">$12,000</div>
+        <img src="https://images.unsplash.com/photo-1611974789855-52bda4f1fab3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Quantum Gardens" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Quantum Gardens</h3>
+          <p class="portfolio-description">Bioluminescent garden in a quantum dimensionp>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.3s;">
+        <div class="price-tag">$9,800</div>
+        <img src="https://images.unsplash.com/photo-1543735679-d963be804518?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Digital Realm" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Digital Realm Nexus</h3>
+          <p class="portfolio-description">Data visualization as a living, breathing ecosystem</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.4s;">
+        <div class="price-tag">$7,500</div>
+        <img src="https://images.unsplash.com/photo-1549086684-40b7b0d5a4b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cyberpunk" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Cyberpunk Alley</h3>
+          <p class="portfolio-description">Rain-soaked streets of Neo-Tokyo in 2077</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.5s;">
+        <div class="price-tag">$11,200</div>
+        <img src="https://images.unsplash.com/photo-1485403145629-814c6bed9d7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Ethereal" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Ethereal Architecture</h3>
+          <p class="portfolio-description">Impossible structures existing between dimensions</p>
+        </div>
+      </div>
+      
+      <div class="portfolio-item animate-fade-in" style="animation-delay: 0.6s;">
+        <div class="price-tag">$8,800</div>
+        <img src="https://images.unsplash.com/photo-1528164344705-475f8492dd52?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Holographic" class="portfolio-image">
+        <div class="portfolio-info">
+          <h3 class="portfolio-title">Holographic Forest</h3>
+          <p class="portfolio-description">Interactive holographic nature simulation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Bio Section -->
+  <section class="bio-section">
+    <div class="bio-container">
+      <div class="bio-image animate-fade-in">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Ethan working on 3D project">
+      </div>
+      <div class="bio-content animate-fade-in" style="animation-delay: 0.1s;">
+        <h2>About Ethan</h2>
+        <p>
+          Born in Singapore, Ethan Chen developed a passion for both art and technology from an early age. At just 14, he was creating 3D models as a hobby while studying traditional Chinese painting techniques. This unique blend of disciplines would later define his artistic style.
+        </p>
+        <p>
+          After earning degrees in both Architecture and Computer Graphics from MIT, Ethan spent years working with leading tech companies before transitioning to full-time digital art in 2018. His work explores how technology can harmonize with nature and human emotion.
+        </p>
+        <p>
+          "I create environments where the impossible becomes possible," says Ethan. "My goal is to craft spaces that inspire wonder and provoke thought about our future relationship with technology and the natural world."
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Awards Section -->
+  <section class="awards-section">
+    <h2 class="section-title animate-fade-in">Awards & Recognition</h2>
+    <div class="awards-grid">
+      <div class="award-card animate-fade-in" style="animation-delay: 0.1s;">
+        <i class="fas fa-cube award-icon"></i>
+        <h3 class="award-title">3D Excellence Award</h3>
+        <p class="award-description">SIGGRAPH Digital Art Festival 2023</p>
+        <p class="award-date">July 2023</p>
+      </div>
+      
+      <div class="award-card animate-fade-in" style="animation-delay: 0.2s;">
+        <i class="fas fa-trophy award-icon"></i>
+        <h3 class="award-title">Future Architect Prize</h3>
+        <p class="award-description">World Digital Architecture Awards 2022</p>
+        <p class="award-date">September 2022</p>
+      </div>
+      
+      <div class="award-card animate-fade-in" style="animation-delay: 0.3s;">
+        <i class="fas fa-vr-cardboard award-icon"></i>
+        <h3 class="award-title">VR Pioneer Award</h3>
+        <p class="award-description">Global Digital Innovation Summit</p>
+        <p class="award-date">March 2022</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="contact-content">
+      <h2>Interested in 3D Environment Collaboration?</h2>
+      <p>Reach out to discuss custom environments, virtual reality experiences, or architectural visualizations</p>
+      <div class="contact-buttons">
+        <a href="mailto:agent@digitalartgallery.com" class="btn btn-primary">
+          <i class="fas fa-envelope"></i> Contact Agent
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <i class="fas fa-gamepad"></i> Request Demo
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="social-links">
+      <a href="#"><i class="fab fa-artstation"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-behance"></i></a>
+    </div>
+    <p>&copy; 2023 Digital Art Gallery. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // Same particle background and observer script as portfolio_ava.html
+    // Particle Background
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const particleCount = 40;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = 'rgba(99, 102, 241, 0.4)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distance / 100})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.portfolio-item, .award-card').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

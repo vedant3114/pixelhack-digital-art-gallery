@@ -329,7 +329,34 @@
     .cursor-follower.hover {
       transform: scale(1.5);
     }
+/* Artist Card Hover Effect */
+    .artist-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
+    .artist-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.2), 0 10px 10px -5px rgba(79, 70, 229, 0.1);
+    }
+
+    /* Artist Image Container */
+   .artist-image-container {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      flex: 0 0 auto; /* Fix for flexbox sizing */
+    }
+
+    .artist-card:hover .artist-image-container {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .artist-card:hover .artist-image-container > div {
+      transform: scale(1.05);
+    }
     /* Artwork shimmer effect */
     .artwork-shimmer {
       background: linear-gradient(90deg, #a78bfa 0%, #e0e7ff 50%, #a78bfa 100%);
@@ -633,13 +660,14 @@
 
 
 
-
-  <!-- Artists Section -->
-  <!-- <section id="artists" class="py-16 bg-gradient-to-br from-indigo-50 to-purple-50 px-4 md:px-8 lg:px-12 xl:px-40">
+ 
+   <!-- Artists Section -->
+  <section id="artists" class="py-16 bg-gradient-to-br from-indigo-50 to-purple-50 px-4 md:px-8 lg:px-12 xl:px-40">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center animate-fadein">Featured Artists</h2>
-      <div
-        class="bg-white rounded-xl p-8 mb-10 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-fadein delay-100">
+      
+      <!-- Ava Sharma Card -->
+      <div class="artist-card bg-white rounded-xl p-8 mb-10 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-fadein delay-100">
         <div class="flex flex-col md:flex-row gap-8 items-center">
           <div class="md:w-2/3">
             <h3 class="text-2xl font-bold text-indigo-900 mb-3 artwork-shimmer">Ava Sharma</h3>
@@ -647,25 +675,26 @@
               Ava Sharma is a digital artist known for her vibrant abstract compositions that explore the intersection
               of color and form. Her work has been featured in exhibitions worldwide.
             </p>
-            <button
-              class="liquid-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 inline-flex items-center">
+            <button 
+            onclick="window.location.href='portfolio.html';"
+            class="liquid-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 inline-flex items-center">
               View Portfolio
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
           </div>
-          <div
-            class="md:w-1/3 aspect-video bg-cover bg-center rounded-lg transform transition-transform duration-500 hover:scale-105 animate-liquid shadow-md"
-            style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80')"
-            alt="Ava Sharma Artist"></div>
+          <div class="artist-image-container md:w-1/3">
+            <div class="aspect-video bg-cover bg-center rounded-lg transform transition-transform duration-500 animate-liquid shadow-md" 
+                 style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=90')"
+                 alt="Ava Sharma Artist">
+            </div>
+          </div>
         </div>
       </div>
 
-   
-      <div
-        class="bg-white rounded-xl p-8 mb-10 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-fadein delay-200">
+      <!-- Ethan Chen Card -->
+      <div class="artist-card bg-white rounded-xl p-8 mb-10 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-fadein delay-200">
         <div class="flex flex-col md:flex-row gap-8 items-center">
           <div class="md:w-2/3">
             <h3 class="text-2xl font-bold text-indigo-900 mb-3 artwork-shimmer">Ethan Chen</h3>
@@ -674,24 +703,25 @@
               offering a glimpse into imagined worlds. His technical mastery in 3D rendering is unmatched.
             </p>
             <button
+              onclick="window.location.href='portfolio_ethan.html';"
               class="liquid-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 inline-flex items-center">
               View Portfolio
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
           </div>
-          <div
-            class="md:w-1/3 aspect-video bg-cover bg-center rounded-lg transform transition-transform duration-500 hover:scale-105 animate-liquid shadow-md"
-            style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80')"
-            alt="Ethan Chen Artist"></div>
+          <div class="artist-image-container md:w-1/3">
+            <div class="aspect-video bg-cover bg-center rounded-lg transform transition-transform duration-500 animate-liquid shadow-md" 
+                 style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80')"
+                 alt="Ethan Chen Artist">
+            </div>
+          </div>
         </div>
       </div>
 
-      
-      <div
-        class="bg-white rounded-xl p-8 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-fadein delay-300">
+      <!-- Isabella Rossi Card -->
+      <div class="artist-card bg-white rounded-xl p-8 shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 animate-fadein delay-300">
         <div class="flex flex-col md:flex-row gap-8 items-center">
           <div class="md:w-2/3">
             <h3 class="text-2xl font-bold text-indigo-900 mb-3 artwork-shimmer">Isabella Rossi</h3>
@@ -700,23 +730,25 @@
               pieces that challenge traditional art boundaries. Her work explores the relationship between technology
               and creativity.
             </p>
-            <button
-              class="liquid-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 inline-flex items-center">
+            <button 
+            onclick="window.location.href='portfolio_isabella.html';"
+            class="liquid-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 inline-flex items-center">
               View Portfolio
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
           </div>
-          <div
-            class="md:w-1/3 aspect-video bg-cover bg-center rounded-lg transform transition-transform duration-500 hover:scale-105 animate-liquid shadow-md"
-            style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"
-            alt="Isabella Rossi Artist"></div>
+          <div class="artist-image-container md:w-1/3">
+            <div class="aspect-video bg-cover bg-center rounded-lg transform transition-transform duration-500 animate-liquid shadow-md" 
+                 style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"
+                 alt="Isabella Rossi Artist">
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
 
   <!-- Testimonials Section -->
   <!-- ✅ Wrap your testimonial cards in a new sliding container -->
