@@ -259,7 +259,7 @@
           data-aos-delay="600" />
         <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"
           data-aos-delay="700" />
-        <div class="relative group w-full h-full perspective" data-aos="flip-left" data-aos-delay="800">
+        <div class="relative group w-full h-full perspective" data-aos="flip-left" data-aos-delay="1000">
           <div class="preserve-3d transition-transform duration-700 group-hover:rotate-y-180 w-full h-full">
             <!-- Front Image -->
             <img src="./img/brand2.jpg" alt="" class="absolute w-full h-full object-cover backface-hidden" />
@@ -271,7 +271,6 @@
             </div>
           </div>
         </div>
-
         <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-down"
           data-aos-delay="900" />
       </div>
@@ -279,36 +278,41 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 items-start" data-aos="fade-down" data-aos-delay="500">
       <!-- Left Side: 2x2 Grid -->
       <div class="grid grid-cols-2 h-[500px]">
-        <img src="./img/image1.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-right"
+        <img src="./img/image5.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-right"
           data-aos-delay="600" />
-        <img src="./img/image4.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"
+        <img src="./img/image6.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-up"
           data-aos-delay="700" />
-        <img src="./img/brand2.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-left"
+        <img src="./img/image8.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-left"
           data-aos-delay="800" />
-        <img src="./img/image3.jpg" alt="" class="w-full h-full object-cover " data-aos="flip-down"
-          data-aos-delay="900" />
-      </div>
-
-      <!-- Right Side: Slider -->
-      <div class="relative w-full h-[500px] overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="500">
-        <div class="w-full h-full relative">
-          <div id="carousel-reverse" class="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out">
-            <img src="./img/image1.jpg" class="w-full h-full object-cover" />
-          </div>
-
-          <!-- Slider Controls -->
-          <div class="absolute bottom-4 right-4 flex gap-3 z-10">
-            <button id="prevSlideReverse"
-              class="bg-white hover:bg-gray-200 text-gray-800 p-2 shadow-md focus:outline-none">
-              &#8592;
-            </button>
-            <button id="nextSlideReverse"
-              class="bg-white hover:bg-gray-200 text-gray-800 p-2 shadow-md focus:outline-none">
-              &#8594;
-            </button>
+        <div class="relative group w-full h-full perspective" data-aos="flip-down" data-aos-delay="1000">
+          <div class="preserve-3d transition-transform duration-700 group-hover:rotate-y-180 w-full h-full">
+            <img src="./img/brand2.jpg" alt="" class="absolute w-full h-full object-cover backface-hidden" />
+            <div
+              class="absolute w-full h-full bg-black text-white text-xl font-bold flex items-center justify-center rotate-y-180 backface-hidden">
+              ₹2,999
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Right Side: Slider -->
+      <!-- Slider Wrapper -->
+      <div class="slider-container relative w-full h-[500px] overflow-hidden shadow-lg" data-aos="fade-up"
+        data-aos-delay="500">
+        <div class="w-full h-full relative">
+          <div class="carousel absolute inset-0 w-full h-full transition-all duration-700 ease-in-out">
+            <img src="./img/image1.jpg" class="w-full h-full object-cover" />
+          </div>
+          <!-- Slider Controls -->
+          <div class="absolute bottom-4 right-4 flex gap-3 z-10">
+            <button
+              class="prevSlide bg-white hover:bg-gray-200 text-gray-800 p-2 shadow-md focus:outline-none">&#8592;</button>
+            <button
+              class="nextSlide bg-white hover:bg-gray-200 text-gray-800 p-2 shadow-md focus:outline-none">&#8594;</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 

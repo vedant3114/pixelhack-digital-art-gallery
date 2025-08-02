@@ -335,7 +335,7 @@ createStarfield();
 /* ================================
    CAROUSELS
 ================================ */
-const images = ['./img/image1.jpg','./img/image2.jpg','./img/image3.jpg','./img/image4.jpg'];
+const images = ['./img/image1.jpg', './img/image2.jpg', './img/image3.jpg', './img/image4.jpg', './img/image5.jpg' , './img/image6.jpg', './img/image7.jpg', './img/image8.jpg', './img/image9.jpg'];
 let currentIndex = 0;
 const carousel = document.getElementById('carousel');
 const prevBtn = document.getElementById('prevSlide');
@@ -348,7 +348,7 @@ function updateCarousel(index) {
   const currentImg = carousel.querySelector('img');
   if (currentImg) {
     currentImg.style.zIndex = '10';
-    currentImg.classList.add('translate-x-0','transition-transform','duration-700');
+    currentImg.classList.add('translate-x-0', 'transition-transform', 'duration-700');
   }
   carousel.appendChild(newImg);
   requestAnimationFrame(() => {
@@ -358,24 +358,53 @@ function updateCarousel(index) {
   });
   setTimeout(() => { if (currentImg) carousel.removeChild(currentImg); }, 700);
 }
-prevBtn?.addEventListener('click', () => { currentIndex = (currentIndex-1+images.length)%images.length; updateCarousel(currentIndex); });
-nextBtn?.addEventListener('click', () => { currentIndex = (currentIndex+1)%images.length; updateCarousel(currentIndex); });
-setInterval(() => { currentIndex = (currentIndex+1)%images.length; updateCarousel(currentIndex); }, 5000);
+prevBtn?.addEventListener('click', () => { currentIndex = (currentIndex - 1 + images.length) % images.length; updateCarousel(currentIndex); });
+nextBtn?.addEventListener('click', () => { currentIndex = (currentIndex + 1) % images.length; updateCarousel(currentIndex); });
+setInterval(() => { currentIndex = (currentIndex + 1) % images.length; updateCarousel(currentIndex); }, 5000);
 
-// Reverse carousel
-const imagesReverse = images;
-let indexReverse = 0;
-const carouselReverse = document.getElementById("carousel-reverse");
-const prevBtnReverse = document.getElementById("prevSlideReverse");
-const nextBtnReverse = document.getElementById("nextSlideReverse");
 
-function showSlideReverse(index) {
-  carouselReverse.style.transform = `translateX(-${index * 100}%)`;
-  carouselReverse.innerHTML = `<img src="${imagesReverse[index]}" class="w-full h-full object-cover transition-all duration-700 ease-in-out"/>`;
-}
-function nextSlideReverseFn() { indexReverse=(indexReverse+1)%imagesReverse.length; showSlideReverse(indexReverse); }
-function prevSlideReverseFn() { indexReverse=(indexReverse-1+imagesReverse.length)%imagesReverse.length; showSlideReverse(indexReverse); }
-nextBtnReverse?.addEventListener("click", nextSlideReverseFn);
-prevBtnReverse?.addEventListener("click", prevSlideReverseFn);
-setInterval(nextSlideReverseFn, 3000);
-showSlideReverse(indexReverse);
+
+document.querySelectorAll('.slider-container').forEach((container, sliderIndex) => {
+  let currentIndex = 0;
+  const carousel = container.querySelector('.carousel');
+  const prevBtn = container.querySelector('.prevSlide');
+  const nextBtn = container.querySelector('.nextSlide');
+
+  function updateCarousel(index) {
+    const newImg = document.createElement('img');
+    newImg.src = images[index];
+    newImg.className = 'w-full h-full object-cover absolute inset-0 transform translate-x-full transition-transform duration-700';
+
+    const currentImg = carousel.querySelector('img');
+    if (currentImg) {
+      currentImg.style.zIndex = '10';
+      currentImg.classList.add('translate-x-0', 'transition-transform', 'duration-700');
+    }
+
+    carousel.appendChild(newImg);
+    requestAnimationFrame(() => {
+      newImg.classList.remove('translate-x-full');
+      newImg.classList.add('translate-x-0');
+      if (currentImg) currentImg.classList.add('-translate-x-full');
+    });
+
+    setTimeout(() => {
+      if (currentImg) carousel.removeChild(currentImg);
+    }, 700);
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateCarousel(currentIndex);
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateCarousel(currentIndex);
+  });
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateCarousel(currentIndex);
+  }, 5000);
+});

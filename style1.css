@@ -217,7 +217,7 @@ html { scroll-behavior: smooth; }
   border: 2px solid #6366f1; border-radius: 50%;
   pointer-events: none; z-index: 10000;
   transition: transform 0.1s; mix-blend-mode: difference;
-  background: radial-gradient(circle, #4f46e5, #7c3aed);
+  background: radial-gradient(circle, #ffa700, #7c3aed);
   box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
 }
 .cursor-follower {
@@ -234,8 +234,8 @@ html { scroll-behavior: smooth; }
 .cursor-trail, .cursor-trail-alt {
   position: fixed; border-radius: 50%; pointer-events: none;
 }
-.cursor-trail { width: 12px; height: 12px; background: rgba(79,70,229,0.8); z-index: 9997; animation: trail-fade 1s ease-out forwards; }
-.cursor-trail-alt { width: 8px; height: 8px; background: rgba(124,58,237,0.6); z-index: 9996; animation: trail-fade-alt 1.2s ease-out forwards; }
+.cursor-trail { width: 12px; height: 12px; background: #ffa700; z-index: 9997; animation: trail-fade 1s ease-out forwards; }
+.cursor-trail-alt { width: 8px; height: 8px; background: #ffa700; z-index: 9996; animation: trail-fade-alt 1.2s ease-out forwards; }
 
 /* ======================================
    RIPPLES
