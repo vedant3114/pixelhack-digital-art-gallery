@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digital Art Gallery | Loading</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="loader-wrapper">
         <!-- Background Overlay -->
@@ -27,11 +30,19 @@
         </div>
 
         <!-- Bottom Note -->
-        <div class="bottom-left">
+        <div class="bottom-left" >
             <p>Immersing you into creativity...</p>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,  // animation duration
+            once: true       // animate only once
+        });
+    </script>
 </body>
+
 </html>
